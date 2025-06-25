@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, jsonify
 from werkzeug.security import check_password_hash
 from PIL import Image
+from waitress import serve
 import os
 import io
 import time
@@ -13,7 +14,7 @@ PASSWORD_HASH = 'scrypt:32768:8:1$clwziZOoYhDcYNLi$3cfbbe8a954771bcb0369426cbd75
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Borrar archivos con más de 24h
+# Eliminar archivos con más de 24 horas
 now = time.time()
 for f in os.listdir(UPLOAD_FOLDER):
     path = os.path.join(UPLOAD_FOLDER, f)
@@ -52,7 +53,7 @@ def upload():
 
     file = request.files.get('images')
     if not file or not allowed_file(file.filename):
-        return jsonify({ 'error': 'Arquivo inválido' }), 400
+        return jsonify({ 'error': 'Archivo inválido' }), 400
 
     filename = file.filename.rsplit('.', 1)[0]
     image_bytes = file.read()
@@ -78,5 +79,6 @@ def download(filename):
         return redirect(url_for('login'))
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
 
+# ✅ Ejecutar con waitress (Render-friendly)
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    serve(app, host='0.0.0.0', port=10000)
