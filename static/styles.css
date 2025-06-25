@@ -1,0 +1,10 @@
+
+body { font-family: sans-serif; background: #f0f0f0; text-align: center; }
+.container { margin: 50px auto; width: 90%; max-width: 500px; background: white; padding: 20px; border-radius: 10px; }
+#drop-zone { border: 2px dashed #999; padding: 20px; margin-bottom: 10px; cursor: pointer; }
+.result-item { margin-top: 10px; }
+.progress-bar-container { width: 100%; background: #ddd; height: 20px; }
+.progress-bar { height: 100%; background: #007bff; width: 0%; }
+.login-box { margin-top: 100px; background: white; padding: 20px; display: inline-block; border-radius: 10px; }
+input, button { padding: 10px; margin: 10px; width: 80%; }
+.error { color: red; }
